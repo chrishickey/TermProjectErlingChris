@@ -1,7 +1,7 @@
 library(boot)
 source("./general.R")
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model")
-
+#setwd("/home/chris/ExperimentalPsychology/RA-pain-model") SETWD TO PARENT DIRECTORY
+# FILE GENERATES DATA FOR PARAMETER RECOVERY
 
 # Simulation parameters
 seed <- 211196
@@ -16,7 +16,6 @@ print(model_name)
 set.seed(seed)   # always set a seed number for this homework!
 
 output = sample_model(model_name, dataList, paramList, iterations, warmups, chains)
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model/simulators")
 
 params = rstan::extract(output)
 risk_aversion = c()
@@ -49,7 +48,7 @@ simul_pars <- data.frame(
 
 
 # read the data file | because we'll just use the presented conditions cus they are equally devided
-dat_1 = read.table("../data/AllSubjectsProcessed.tsv", header=T, sep="\t")
+dat_1 = read.table("./data/AllSubjectsProcessed.tsv", header=T, sep="\t")
 
 # For storing simulated choice data for all subjects
 all_data = data.frame(Trial = dat_1$Trial,
@@ -82,9 +81,9 @@ for (i in 1:nrow(dat_1)) {
 all_data$ResponseType = responses
 
 # Write out data
-write.table(all_data, file = "simul_data_2_const_h.txt", row.names = F, col.names = T, sep = "\t")
+write.table(all_data, file = "./simulators/simul_data_2_const_h.txt", row.names = F, col.names = T, sep = "\t")
 # write out parameters
-write.table(simul_pars[-c(14),], file ="simul_param_2_const_h.txt", row.names=F, col.names = T, sep = "\t")
+write.table(simul_pars[-c(14),], file ="./simulators/simul_param_2_const_h.txt", row.names=F, col.names = T, sep = "\t")
 write.table(
             data.frame(
               RiskAversion = 0.5,
@@ -93,4 +92,4 @@ write.table(
               PainAvoidance_high = 0.9,
               tau = 10
             ),
-            file ="simul_param_hyp_2_const_h.txt", row.names=F, col.names = T, sep = "\t")
+            file ="./simulators/simul_param_hyp_2_const_h.txt", row.names=F, col.names = T, sep = "\t")

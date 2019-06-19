@@ -1,8 +1,8 @@
 library(boot)
 source("./general.R")
 library("pracma")
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model")
-
+#setwd("/home/chris/ExperimentalPsychology/TermProjectErlingChris")
+# RUN THIS FILE TO GENERATE SIMULATED DATA FOR PARAMETER RECOVERY
 
 # Simulation parameters
 seed <- 211196
@@ -68,7 +68,7 @@ all_data = data.frame(Trial = dat_1$Trial,
                      Shock = dat_1$Shock,
                      SubjID = dat_1$SubjID)
 
-preprocessedData <- get_chris_dataList()
+preprocessedData <- get_dataList2()
 
 responses = rep(0, nrow(dat_1))
 for (i in 1:nrow(dat_1)) {
@@ -82,12 +82,11 @@ for (i in 1:nrow(dat_1)) {
     # Append current subject with all subjects' data
     responses[i] = ResponseType
 }
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model/simulators")
 
 all_data$ResponseType = responses
 
 # Write out data
-write.table(all_data, file = "simul_data_2_author2.txt", row.names = F, col.names = T, sep = "\t")
+write.table(all_data, file = "./simulators/simul_data_2_author2.txt", row.names = F, col.names = T, sep = "\t")
 # write out parameters
-write.table(simul_pars[-c(14),], file ="simul_param_2_author2.txt", row.names=F, col.names = T, sep = "\t")
+write.table(simul_pars[-c(14),], file ="./simulators/simul_param_2_author2.txt", row.names=F, col.names = T, sep = "\t")
 

@@ -46,6 +46,7 @@ traceplot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance","mu_PainRetention
 pdf(paste("./plots/", model_name, "_posteriors.pdf", sep=""))
 stan_plot(output, pars=c("RiskAversion"))
 stan_plot(output, pars=c("PainAvoidance"))
+# See pain retention converge to 0 !!!
 stan_plot(output, pars=c("PainRetention"))
 stan_plot(output, pars=c("tau"))
 stan_plot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance","mu_PainRetention","mu_tau"))
