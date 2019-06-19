@@ -1,0 +1,6 @@
+models/*.rds filter=lfs diff=lfs merge=lfs -text
+stanfits/*.rds filter=lfs diff=lfs merge=lfs -text
+simulators/stanfits/*.rds filter=lfs diff=lfs merge=lfs -text
+*.rds filter=lfs diff=lfs merge=lfs -text
+*.txt filter=lfs diff=lfs merge=lfs -text
+simulators/*.txt filter=lfs diff=lfs merge=lfs -text
