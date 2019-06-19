@@ -5,6 +5,7 @@ library(rstan)
 model_name = "const_i"
 print("running model")
 print(model_name)
+# setwc()
 
 iterations = 2000
 warmups = 1000
@@ -16,8 +17,10 @@ dataList = get_dataList()
 
 output = sample_model(model_name, dataList, paramList, iterations, warmups, chains)
 
-BIC(output, dataList, 5)
+#BIC(output, dataList, 5)
+# Run for PPC
 PPC(output, dataList)
+
 LOOIC(output)
 
 ## traceplot

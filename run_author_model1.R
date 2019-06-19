@@ -22,7 +22,7 @@ output = sample_model(model_name, dataList, paramList, iterations, warmups, chai
 #parameters <- rstan::extract(output)
 
 
-#BIC_2(output, dataList, 1)
+BIC_2(output, dataList, 1)
 
 # Run for LOOIC
 LOOIC(output)
@@ -31,14 +31,14 @@ LOOIC(output)
 PPC_2(output, dataList, iterations-warmups)
 
 
-## traceplot
+## traceplot 
 pdf(paste("./plots/", model_name, "_traceplot.pdf", sep=""))
 traceplot(output, pars=c("beta_mu"))
 traceplot(output, pars=c("theta"))
 traceplot(output, pars=c("ddb"))
 
 
-# posterior plots
+# posterior plots (basic)
 pdf(paste("./plots/", model_name, "_posteriors.pdf", sep=""))
 stan_plot(output, pars=c("beta_mu"))
 stan_plot(output, pars=c("theta"))

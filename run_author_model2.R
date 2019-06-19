@@ -1,7 +1,8 @@
 source("./general.R")
 library(ggplot2)
 library(rstan)
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model")
+#setwd()
+# THIS IS THE ARC-Model referenced in the presentation
 
 
 model_name = "author2"
@@ -20,7 +21,9 @@ dataList = get_dataList2()
 output = sample_model(model_name, dataList, paramList, iterations, warmups, chains)
 
 parameters <- rstan::extract(output)
-#BIC_2(output, dataList, 4)
+BIC_2(output, dataList, 4)
+
+# Run for LOOIC
 LOOIC(output)
 
 
@@ -28,7 +31,7 @@ LOOIC(output)
 PPC_2(output, dataList, iterations-warmups)
 
 ## traceplot
-pdf(paste("./plots/", model_name, "_traceplot.pdf", sep=""))
+#pdf(paste("./plots/", model_name, "_traceplot.pdf", sep=""))
 traceplot(output, pars=c("beta_mu"))
 traceplot(output, pars=c("beta"))
 traceplot(output, pars=c("beta_sig"))
@@ -36,7 +39,7 @@ traceplot(output, pars=c("theta"))
 traceplot(output, pars=c("ddb"))
 
 
-# posterior plots
+# posterior plots (NOT IN PRESENTATION)
 pdf(paste("./plots/", model_name, "_posteriors.pdf", sep=""))
 stan_plot(output, pars=c("beta_mu"))
 stan_plot(output, pars=c("beta"))
@@ -45,8 +48,8 @@ stan_plot(output, pars=c("theta"))
 stan_plot(output, pars=c("ddb"))
 
 
-############
-print("comparing PA")
+############ RUN FOR POSTERIOR PLOTS SEEN IN PRESENTATION
+
 #pdf(paste("./plots/", model_name, "_comparison_PA.pdf", sep=""))
 parameters = extract(output)
 poseriorBeta1 = data.frame(parameters$beta[,,1])
@@ -65,5 +68,5 @@ ggplot(poseriorBeta3, aes(x=value, color=variable)) + geom_density() + geom_vlin
 ggplot(poseriorBeta4, aes(x=value, color=variable)) + geom_density() + geom_vline(aes(xintercept=mean(value))) + ggtitle("Beta 4") + theme(legend.position="none") + scale_x_continuous(limits=c(-15,30))
 ggplot(reshape::melt(data.frame(parameters$beta_mu)), aes(x=value, color=variable)) + geom_density() + geom_vline(aes(xintercept=mean(value))) + ggtitle("Beta Mu") + theme(legend.position="none") + scale_x_continuous(limits=c(-10,10))
 
-
+# Run for parameter recovery plots
 parameter_recovery2(model_name, paramList, iterations, warmups, 4)

@@ -13,7 +13,7 @@ chains = 4
 # get pars vector
 paramList = c("RiskAversion","PainAvoidance","PainRetention","tau","log_lik","PredictedResponse")
 dataList = get_dataList()
-# MODEL DOES NOT CONVERGE
+# MODEL DOES NOT CONVERGE IGNORE
 
 #output = sample_model(model_name, dataList, paramList, iterations, warmups, chains, init= list(
 #                          chain_1 = list(

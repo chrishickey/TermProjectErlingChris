@@ -1,9 +1,9 @@
 source("./general.R")
 library(ggplot2)
 library(rstan)
-setwd("/home/chris/ExperimentalPsychology/RA-pain-model")
+#setwd("")
 
-
+# MODEL REFERENCED IN FINAL REPORT
 model_name = "const_h_noT"
 print("running model")
 print(model_name)
@@ -19,22 +19,26 @@ dataList = get_dataList()
 output = sample_model(model_name, dataList, paramList, iterations, warmups, chains)
 
 BIC(output, dataList, 4)
+# Run for BBC
 PPC(output, dataList)
+# Run for LOOIC score
 LOOIC(output)
+# Run for posreriors (click back through plots to see all (first plot will be blank due to no tau value))
 compare_PA(output)
 
-# ## traceplot
+# ## traceplot (can run for traceplots if you want) 
 # pdf(paste("./plots/", model_name, "_traceplot.pdf", sep=""))
-# traceplot(output, pars=c("RiskAversion"))
-# traceplot(output, pars=c("PainAvoidance"))
-# traceplot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
+traceplot(output, pars=c("RiskAversion"))
+traceplot(output, pars=c("PainAvoidance"))
+traceplot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
 #
 #
 # # posterior plots
 # pdf(paste("./plots/", model_name, "_posteriors.pdf", sep=""))
-# stan_plot(output, pars=c("RiskAversion"))
-# stan_plot(output, pars=c("PainAvoidance"))
-# stan_plot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
-# stan_dens(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
+stan_plot(output, pars=c("RiskAversion"))
+stan_plot(output, pars=c("PainAvoidance"))
+stan_plot(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
+stan_dens(output, pars=c("mu_RiskAversion", "mu_PainAvoidance"))
 
+# Run for parameter recovery
 parameter_recovery(model_name, paramList, iterations, warmups, 4)

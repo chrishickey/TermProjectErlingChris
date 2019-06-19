@@ -1,7 +1,7 @@
 source("./general.R")
 library(ggplot2)
 library(rstan)
-
+# MODEL DOES NOT CONVERGE !!! PLEASE IGNORE
 model_name = "exp_i"
 print("running model")
 print(model_name)
